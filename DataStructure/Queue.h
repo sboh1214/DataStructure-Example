@@ -25,6 +25,10 @@ Queue *Queue_Init(int length)
 
 Queue *Queue_Put(Queue *queue, int value)
 {
+    for (int * tempPtr = queue->FrontPtr; tempPtr>=queue->RearPtr; tempPtr--)
+    {
+        *(tempPtr+1) = *tempPtr;
+    }
     *(queue->RearPtr) = value;
     queue->FrontPtr++;
 }

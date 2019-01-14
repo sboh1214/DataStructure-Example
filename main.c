@@ -19,10 +19,10 @@ int main()
     printf("\n");
 
     printf("Queue\n");
-    Queue * queue = Queue_Init(0);
+    Queue *queue = Queue_Init(0);
     Queue_Put(queue, 10);
     Queue_Put(queue, 20);
-    Queue_Put(queue,30);
+    Queue_Put(queue, 30);
     printf("10 20 30\n");
     printf("%d ", Queue_Get(queue));
     printf("%d ", Queue_Get(queue));

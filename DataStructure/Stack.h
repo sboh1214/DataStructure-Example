@@ -49,7 +49,7 @@ int Stack_Pop(Stack *stackPtr)
     }
 }
 
-Stack *Stack_Push(Stack *stackPtr, int value)
+void Stack_Push(Stack *stackPtr, int value)
 {
     stackPtr->TopPtr++;
     *(stackPtr->TopPtr) = value;

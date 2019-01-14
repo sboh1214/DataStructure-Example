@@ -23,7 +23,7 @@ Queue *Queue_Init(int length)
     return queue;
 }
 
-Queue *Queue_Put(Queue *queue, int value)
+void Queue_Put(Queue *queue, int value)
 {
     for (int * tempPtr = queue->FrontPtr; tempPtr>=queue->RearPtr; tempPtr--)
     {
@@ -40,7 +40,7 @@ int Queue_Get(Queue *queue)
     return value;
 }
 
-Queue *Queue_Delete(Queue *queue)
+void Queue_Delete(Queue *queue)
 {
     free(queue->RearPtr);
     free(queue);

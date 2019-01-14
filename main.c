@@ -1,11 +1,34 @@
 #include <stdio.h>
-#include "Stack.h"
 
-int main(int argc, char const *argv[])
+#include "DataStructure/Settings.h"
+#include "DataStructure/Stack.h"
+#include "DataStructure/Queue.h"
+
+int main()
 {
-    Stack * stack1;
-    stack1 = Stack_Init();
-    Stack_Push(stack1,140);
-    printf("%d",Stack_Peek(stack1));
+    printf("Stack\n");
+    Stack *stack = Stack_Init(0);
+    Stack_Push(stack, 10);
+    Stack_Push(stack, 20);
+    Stack_Push(stack, 30);
+    printf("10 20 30\n");
+    printf("%d ", Stack_Pop(stack));
+    printf("%d ", Stack_Pop(stack));
+    printf("%d ", Stack_Pop(stack));
+    Stack_Delete(stack);
+    printf("\n");
+
+    printf("Queue\n");
+    Queue * queue = Queue_Init(0);
+    Queue_Put(queue, 10);
+    Queue_Put(queue, 20);
+    Queue_Put(queue,30);
+    printf("10 20 30\n");
+    printf("%d ", Queue_Get(queue));
+    printf("%d ", Queue_Get(queue));
+    printf("%d ", Queue_Get(queue));
+    Queue_Delete(queue);
+    printf("\n");
+
     return 0;
 }

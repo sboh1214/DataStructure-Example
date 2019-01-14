@@ -1,5 +1,5 @@
 #ifndef Settings
-#include "Settings.h"
+#include "_Settings.h"
 #endif
 
 typedef struct

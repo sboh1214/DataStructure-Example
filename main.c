@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "DataStructure/Settings.h"
+#include "DataStructure/_Settings.h"
 #include "DataStructure/Stack.h"
 #include "DataStructure/Queue.h"
 

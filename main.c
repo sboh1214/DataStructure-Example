@@ -1,13 +1,12 @@
 #include <stdio.h>
+#include <time.h>
 
-#include "DataStructure/_Settings.h"
-#include "DataStructure/Stack.h"
-#include "DataStructure/Queue.h"
+#include "DataStructure/_DataStructure.h"
 
 int main()
 {
     printf("Stack\n");
-    Stack *stack = Stack_Init(0);
+    Stack *stack = Stack_Init(100);
     Stack_Push(stack, 10);
     Stack_Push(stack, 20);
     Stack_Push(stack, 30);

@@ -8,4 +8,6 @@ int DEFAULT_SHRINK_SIZE = 10;
 
 #define TRUE 1
 #define FALSE 0
+
+#define SUCCESS 0
 #define ERROR -1

@@ -15,49 +15,62 @@ Stack *Stack_Init(int length)
     {
         length = DEFAULT_INIT_SIZE;
     }
-    int *intPtr = (int *)calloc(length, sizeof(int));
-    Stack *stackPtr = (Stack *)malloc(sizeof(Stack));
-    stackPtr->TopPtr = intPtr - 1;
-    stackPtr->BottomPtr = intPtr;
-    stackPtr->EndPtr = intPtr + length - 1;
-    return stackPtr;
+    int *ptr = (int *)calloc(length, sizeof(int));
+    Stack *stack = (Stack *)malloc(sizeof(Stack));
+    stack->TopPtr = ptr - 1;
+    stack->BottomPtr = ptr;
+    stack->EndPtr = ptr + length - 1;
+    return stack;
 }
 
-int Stack_Peek(Stack *stackPtr)
+void Stack_Push(Stack *stack, int value)
 {
-    if (stackPtr->TopPtr == stackPtr->BottomPtr - 1)
+    if (stack->TopPtr + 1 == stack->EndPtr)
+    {
+        int length = stack->EndPtr - stack->BottomPtr + 1 + DEFAULT_EXPAND_SIZE;
+        int *ptr = (int*)realloc(stack->BottomPtr, length * sizeof(int));
+        stack->TopPtr = ptr + length - 1;
+        stack->BottomPtr = ptr;
+        stack->EndPtr = ptr + length - 1;
+    }
+    stack->TopPtr++;
+    *(stack->TopPtr) = value;
+}
+
+int Stack_Peek(Stack *stack)
+{
+    if (stack->TopPtr == stack->BottomPtr - 1)
     {
         return ERROR;
     }
     else
     {
-        return *(stackPtr->TopPtr);
+        return *(stack->TopPtr);
     }
 }
 
-int Stack_Pop(Stack *stackPtr)
+int Stack_Pop(Stack *stack)
 {
-    if (stackPtr->TopPtr == stackPtr->BottomPtr - 1)
+    if (stack->TopPtr == stack->BottomPtr - 1)
     {
         return ERROR;
     }
-    else
+    if (stack->TopPtr + DEFAULT_SHRINK_SIZE < stack->EndPtr)
     {
-        int value = *(stackPtr->TopPtr);
-        stackPtr->TopPtr--;
-        return value;
+        int length = stack->EndPtr - stack->BottomPtr + 1 - DEFAULT_SHRINK_SIZE;
+        int *ptr = (int*)realloc(stack->BottomPtr, length * sizeof(int));
+        stack->TopPtr = ptr + length - 1;
+        stack->BottomPtr = ptr;
+        stack->EndPtr = ptr + length - 1;
     }
+    int value = *(stack->TopPtr);
+    stack->TopPtr--;
+    return value;
 }
 
-void Stack_Push(Stack *stackPtr, int value)
+int Stack_IsEmpty(Stack *stack)
 {
-    stackPtr->TopPtr++;
-    *(stackPtr->TopPtr) = value;
-}
-
-int Stack_IsEmpty(Stack *stackPtr)
-{
-    if (stackPtr->TopPtr == stackPtr->BottomPtr - 1)
+    if (stack->TopPtr == stack->BottomPtr - 1)
     {
         return TRUE;
     }

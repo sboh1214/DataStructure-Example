@@ -1,33 +1,37 @@
 #include <stdio.h>
-#include <time.h>
-
 #include "DataStructure/_DataStructure.h"
 
 int main()
 {
     printf("Stack\n");
-    Stack *stack = Stack_Init(100);
-    Stack_Push(stack, 10);
-    Stack_Push(stack, 20);
-    Stack_Push(stack, 30);
-    printf("10 20 30\n");
-    printf("%d ", Stack_Pop(stack));
-    printf("%d ", Stack_Pop(stack));
-    printf("%d ", Stack_Pop(stack));
-    Stack_Delete(stack);
+    Stack *stack = Stack_Init(0);
+    for (int i = 0; i < 5; i++)
+    {
+        Stack_Push(stack, i);
+        printf("%d ", i);
+    }
     printf("\n");
+    for (int i = 0; i < 5; i++)
+    {
+        printf("%d ", Stack_Pop(stack));
+    }
+    printf("\n");
+    Stack_Delete(stack);
 
     printf("Queue\n");
     Queue *queue = Queue_Init(0);
-    Queue_Put(queue, 10);
-    Queue_Put(queue, 20);
-    Queue_Put(queue, 30);
-    printf("10 20 30\n");
-    printf("%d ", Queue_Get(queue));
-    printf("%d ", Queue_Get(queue));
-    printf("%d ", Queue_Get(queue));
-    Queue_Delete(queue);
+    for (int i=0;i<20;i++)
+    {
+        Queue_Put(queue, i);
+        printf("%d ",i);
+    }
     printf("\n");
+    for (int i = 0; i < 20; i++)
+    {
+        printf("%d ", Queue_Get(queue));
+    }
+    printf("\n");
+    Queue_Delete(queue);
 
     return 0;
 }

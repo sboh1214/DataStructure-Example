@@ -4,16 +4,16 @@
 
 typedef struct
 {
-    int *BottomPtr;
-    int *TopPtr;
-    int *EndPtr;
+    int *BottomPtr; //start of allocated memory
+    int *TopPtr;    //end of data
+    int *EndPtr;    //end of allocated memory
 } Stack;
 
 Stack *Stack_Init(int length)
 {
     if (length == 0)
     {
-        length = DEFAULT_INIT_SIZE;
+        length = INIT_SIZE;
     }
     int *ptr = (int *)calloc(length, sizeof(int));
     Stack *stack = (Stack *)malloc(sizeof(Stack));
@@ -25,16 +25,23 @@ Stack *Stack_Init(int length)
 
 void Stack_Push(Stack *stack, int value)
 {
-    if (stack->TopPtr + 1 == stack->EndPtr)
+    if (stack->TopPtr == stack->EndPtr) //Check whether stack is full or not
     {
-        int length = stack->EndPtr - stack->BottomPtr + 1 + DEFAULT_EXPAND_SIZE;
-        int *ptr = (int*)realloc(stack->BottomPtr, length * sizeof(int));
-        stack->TopPtr = ptr + length - 1;
-        stack->BottomPtr = ptr;
-        stack->EndPtr = ptr + length - 1;
+        int length = stack->EndPtr - stack->BottomPtr + 1 + EXPAND_SIZE;
+        int *beforeBottomPtr = stack->BottomPtr;
+        int *afterBottomPtr = (int *)realloc(stack->BottomPtr, length * sizeof(int));
+        stack->EndPtr += EXPAND_SIZE;
+        if (beforeBottomPtr !=  afterBottomPtr) //reallocated in different space
+        {
+            int diffPtr = (int)(afterBottomPtr - beforeBottomPtr);
+            stack->BottomPtr += diffPtr;
+            stack->TopPtr += diffPtr;
+            stack->EndPtr += diffPtr;
+        }
+        
     }
     stack->TopPtr++;
-    *(stack->TopPtr) = value;
+    *(stack->TopPtr) = value; //push data at the top
 }
 
 int Stack_Peek(Stack *stack)
@@ -55,13 +62,11 @@ int Stack_Pop(Stack *stack)
     {
         return ERROR;
     }
-    if (stack->TopPtr + DEFAULT_SHRINK_SIZE < stack->EndPtr)
+    if (stack->TopPtr + SHRINK_SIZE < stack->EndPtr)
     {
-        int length = stack->EndPtr - stack->BottomPtr + 1 - DEFAULT_SHRINK_SIZE;
-        int *ptr = (int*)realloc(stack->BottomPtr, length * sizeof(int));
-        stack->TopPtr = ptr + length - 1;
-        stack->BottomPtr = ptr;
-        stack->EndPtr = ptr + length - 1;
+        int length = stack->EndPtr - stack->BottomPtr + 1 - SHRINK_SIZE;
+        (int *)realloc(stack->BottomPtr, length * sizeof(int));
+        stack->EndPtr -= SHRINK_SIZE;
     }
     int value = *(stack->TopPtr);
     stack->TopPtr--;

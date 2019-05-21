@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-#define Settings
+#define _Settings
 
 int INIT_SIZE = 10;
 int EXPAND_SIZE = 10;
